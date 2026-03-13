@@ -169,21 +169,11 @@ Automated test suite with 50+ tests covering:
 - Chatbot responses (keyword routing, edge cases)
 - Search and pagination
 
-## 🎯 Other Projects
-
-| Project | Description | Tech |
-|---------|-------------|------|
-| **MNIST Neural Network** | From-scratch NN — 96% test, 99.685% Kaggle | Pure NumPy (no frameworks) |
-| **Wally** | ESP32 voice assistant with speech recognition | C++, ESP32, TTS/STT |
-| **VEX Line Follower** | Autonomous robot with PID control | C++, VEX Robotics |
-| **Grid Pathfinder** | BFS/DFS/A* algorithm visualizer | Python |
-
 ## 📬 Contact
 
 - 🌐 **Website:** [scholarfinder.pythonanywhere.com](https://scholarfinder.pythonanywhere.com)
 - 📧 **Email:** scottantwi930@gmail.com
 - 💬 **WhatsApp:** +233549545063
-- 🐙 **GitHub:** [@ScottT2-spec](https://github.com/ScottT2-spec)
 - 📸 **Instagram:** [@bb_scott1](https://instagram.com/bb_scott1)
 
 ---
