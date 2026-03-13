@@ -1,187 +1,60 @@
-<div align="center">
+# ScholarFinder
 
-# 🎓 ScholarFinder
+Free platform that helps students find scholarships, universities, and study abroad opportunities. Built with Flask, SQLite, and Groq (LLaMA 3.3 70B).
 
-### AI-Powered Study Abroad Platform
+**Live:** [scholarfinder.pythonanywhere.com](https://scholarfinder.pythonanywhere.com)  
+**Telegram bot:** [@ScholarFinder_bot](https://t.me/ScholarFinder_bot)
 
-*Find scholarships, universities, and opportunities worldwide — matched to your profile, for free.*
+## what it does
 
-**[🌐 Live Site](https://scholarfinder.pythonanywhere.com)** · **[📱 Telegram Bot](https://t.me/ScholarFinder_bot)**
+- search 400+ scholarships by country, field, level, or just type what you're looking for
+- browse 200+ universities with rankings, tuition, and financial aid info
+- 195+ opportunities (internships, fellowships, research programs, competitions)
+- cost of living data for 85 cities worldwide
+- visa guides for 49 countries
+- test prep for IELTS, TOEFL, SAT, GRE, GMAT, Duolingo
 
-![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-3.0-green?logo=flask&logoColor=white)
-![AI](https://img.shields.io/badge/AI-LLaMA_3.3_70B-purple?logo=meta&logoColor=white)
-![Scholarships](https://img.shields.io/badge/Scholarships-402+-orange)
-![Universities](https://img.shields.io/badge/Universities-207+-blue)
-![Opportunities](https://img.shields.io/badge/Opportunities-195+-green)
+## ai tools
 
----
+6 AI agents built on LLaMA 3.3 70B through Groq:
 
-</div>
+- **scout** — finds scholarships that match your profile and scores them
+- **writer** — helps draft and improve scholarship essays
+- **profiler** — builds your student profile and checks eligibility
+- **tracker** — manages deadlines with color-coded timeline
+- **advisor** — recommends which scholarships to prioritize
+- **prep** — mock interview questions with feedback
 
-## 🚀 What Is ScholarFinder?
+plus an essay rater (strict 1-10 scoring, most get 4-6), resume reviewer, and school matcher.
 
-ScholarFinder is a free platform that helps students find and apply for scholarships, universities, and opportunities worldwide. It combines a comprehensive database with AI-powered tools to make the study abroad journey easier.
+## how matching works
 
-Built entirely by **Scott Antwi** (17, Ghana 🇬🇭) under **Alpha Global Minds**.
+scholarships get scored based on how well they fit you:
+- country match: 30 pts
+- field of study: 25 pts
+- education level: 20 pts
+- interest keywords: 10 pts each
+- fully funded bonus: 5 pts
 
-## ✨ Features
+also has AI-powered deep matching that gives personalized recommendations with reasons.
 
-### 📊 Comprehensive Database
-| Category | Count | Details |
-|----------|-------|---------|
-| 🎯 Scholarships | 402+ | Searchable by country, field, level, funding type |
-| 🏫 Universities | 207+ | Rankings, tuition info, financial aid notes |
-| 🚀 Opportunities | 195+ | Internships, fellowships, competitions, research programs |
-| 💰 Cost of Living | 85 cities | Monthly breakdown: rent, food, transport, entertainment |
-| 🛂 Visa Guides | 49 countries | Documents, costs, embassy links, processing tips |
-| 📝 Test Prep | 6 tests | IELTS, TOEFL, SAT, GRE, GMAT, Duolingo |
-| ❓ FAQ | 42 entries | Common questions about studying abroad |
+## some technical stuff
 
-### 🤖 AI-Powered Tools
-- **Essay Rater** — Paste your personal statement, SOP, or motivation letter. Get a 1-10 score with specific, actionable feedback on hook, narrative, voice, and impact. Strict grading — most essays score 4-6.
-- **Resume Reviewer** — Upload or paste your resume. AI analyzes structure, action verbs, quantified achievements, and ATS-friendliness.
-- **School Matcher** — Enter your GPA, country preference, and field. Get matched with universities with High/Medium/Reach ratings.
-- **AI Recommendations** — Personalized scholarship and university matches based on your profile, powered by LLaMA 3.3 70B. Addresses you by first name.
+- 12 Groq API keys with round-robin rotation (auto-skips rate-limited keys)
+- 40+ scholarship sources scraped daily via GitHub Actions
+- AI extracts structured data from raw HTML
+- mtime-based caching (re-reads files only when they change on disk)
+- SQLite-backed rate limiting that survives restarts
+- 150+ recognized fields of study with alias support and fuzzy matching
+- PBKDF2 password hashing, CSRF protection, email OTP verification
+- 50+ automated tests
 
-### 🧠 6 AI Agents
-| Agent | Role |
-|-------|------|
-| 🔍 **Scout** | Scholarship Finder — matches scholarships to your profile with scores |
-| 📝 **Writer** | Essay Assistant — helps draft and improve scholarship essays |
-| 👤 **Profiler** | Student Matcher — builds your profile and calculates eligibility |
-| 📅 **Tracker** | Deadline Manager — color-coded deadline timeline |
-| 🎯 **Advisor** | Strategy Coach — recommends which scholarships to prioritize |
-| 🎤 **Prep** | Interview Coach — practice questions with AI feedback |
+## stack
 
-### 🔐 Production Security
-- PBKDF2-HMAC-SHA256 password hashing (100K iterations, per-user salt)
-- CSRF token protection on all forms
-- Email verification with 6-digit OTP (1-minute expiry)
-- SQLite-backed rate limiting (survives restarts)
-- Secure session cookies (HttpOnly, Secure, SameSite)
-- Google OAuth 2.0 integration
+python 3.10, flask, sqlite, jinja2, vanilla js, beautifulsoup, groq api, pythonanywhere, github actions
 
-## 🏗️ Architecture
+## contact
 
-```
-┌─────────────────────────────────────────────┐
-│                  Frontend                     │
-│     Jinja2 Templates + Vanilla JavaScript     │
-└──────────────────┬──────────────────────────┘
-                   │
-┌──────────────────▼──────────────────────────┐
-│              Flask Backend                    │
-│                                               │
-│  ┌─────────┐ ┌──────────┐ ┌──────────────┐  │
-│  │  Routes  │ │ AI Proxy │ │  Webhooks    │  │
-│  │  (auth,  │ │ (Groq    │ │  (scholarship│  │
-│  │  pages,  │ │  12-key  │ │  management) │  │
-│  │  API)    │ │  rotate) │ │              │  │
-│  └────┬─────┘ └────┬─────┘ └──────┬───────┘  │
-│       │             │              │           │
-│  ┌────▼─────────────▼──────────────▼───────┐  │
-│  │           Data Layer                     │  │
-│  │  SQLite (users, bookmarks, logs, rates) │  │
-│  │  JSON files (scholarships, unis, etc.)  │  │
-│  │  In-memory cache (mtime-based refresh)  │  │
-│  └──────────────────────────────────────────┘  │
-└──────────────────────────────────────────────┘
-                   │
-┌──────────────────▼──────────────────────────┐
-│          Daily Scraper (GitHub Actions)       │
-│                                               │
-│  40+ sources → BeautifulSoup → AI extraction │
-│  → deduplication → expiry cleanup → webhook  │
-└──────────────────────────────────────────────┘
-```
-
-## 🔧 Technical Highlights
-
-### AI Key Rotation System
-12 Groq API keys with intelligent rotation:
-- Round-robin selection across all keys
-- Reads `retry-after` header on 429 responses
-- Marks keys as "dead" with exact recovery timestamps
-- Immediately tries next key on rate limit
-- 30-second total retry budget with sleep-until-soonest-recovery
-- Zero downtime for users even under heavy AI usage
-
-### Smart Scholarship Matching
-Point-based scoring algorithm:
-- Country match: +30 pts
-- Field of study match: +25 pts  
-- Education level match: +20 pts
-- Interest keywords: +10 pts each
-- Fully funded bonus: +5 pts
-
-Plus AI-powered deep matching via LLaMA 3.3 70B for personalized recommendations with natural language reasons.
-
-### Automated Web Scraper
-- 40+ scholarship sources (Africa-focused + international)
-- BeautifulSoup HTML parsing with configurable CSS selectors
-- AI-powered data extraction (webpage text → structured JSON)
-- Automatic deduplication (MD5 hash of name + university)
-- Deadline parsing (10+ date formats) with 7-day grace period
-- Expired scholarships archived, not deleted
-
-### Field of Study Validation
-- 150+ recognized fields across all disciplines
-- Alias support (CS → Computer Science, AI → Artificial Intelligence)
-- Fuzzy matching (Marine Biology → Biology)
-- Gibberish detection for nonsense inputs
-- Graceful fallback to general recommendations
-
-### Caching Layer
-- File modification time (mtime) based cache
-- Instant re-reads when data changes, cached otherwise
-- Auto-invalidation when webhooks write new data
-- Zero configuration, zero stale data
-
-### Persistent Rate Limiting
-- SQLite-backed (survives app restarts)
-- 5 login attempts per IP per 5 minutes
-- 3 verification resends per email per 5 minutes
-- Auto-cleanup of expired entries
-- Fails open on database errors
-
-## 📊 Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Backend | Python 3.10, Flask 3.0 |
-| Database | SQLite (WAL mode) |
-| AI | Groq API, LLaMA 3.3 70B Versatile |
-| Frontend | Jinja2, Vanilla JS, CSS Custom Properties |
-| Hosting | PythonAnywhere |
-| Scraping | BeautifulSoup4, GitHub Actions |
-| Auth | PBKDF2, Google OAuth 2.0, Email OTP |
-
-## 🧪 Testing
-
-Automated test suite with 50+ tests covering:
-- Field validation (gibberish detection, aliases, fuzzy matching)
-- Password security (unique salts, hash verification)
-- Data integrity (all JSON files loaded, required fields present)
-- Caching behavior (cache hits, invalidation)
-- API endpoints (all routes, correct response formats)
-- Authentication flows (protected routes, login required)
-- Chatbot responses (keyword routing, edge cases)
-- Search and pagination
-
-## 📬 Contact
-
-- 🌐 **Website:** [scholarfinder.pythonanywhere.com](https://scholarfinder.pythonanywhere.com)
-- 📧 **Email:** scottantwi930@gmail.com
-- 💬 **WhatsApp:** +233549545063
-- 📸 **Instagram:** [@bb_scott1](https://instagram.com/bb_scott1)
-
----
-
-<div align="center">
-
-**Built with 💚 in Ghana 🇬🇭 by Scott Antwi | Alpha Global Minds**
-
-*17 years old. 2,800+ lines of production code. 400+ scholarships helping students worldwide.*
-
-</div>
+email: scottantwi930@gmail.com  
+whatsapp: +233549545063  
+instagram: [@bb_scott1](https://instagram.com/bb_scott1)
