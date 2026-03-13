@@ -75,9 +75,9 @@ Built entirely by **Scott Antwi** (17, Ghana 🇬🇭) under **Alpha Global Mind
 │                                               │
 │  ┌─────────┐ ┌──────────┐ ┌──────────────┐  │
 │  │  Routes  │ │ AI Proxy │ │  Webhooks    │  │
-│  │  (auth,  │ │ (Groq    │ │  (scholarship│  │
-│  │  pages,  │ │  12-key  │ │  management) │  │
-│  │  API)    │ │  rotate) │ │              │  │
+│  │  (auth,  │ │ (Groq)    │ │  (scholarship│  │
+│  │  pages,  │ │          │ │  management) │  │
+│  │  API)    │ │          │ │              │  │
 │  └────┬─────┘ └────┬─────┘ └──────┬───────┘  │
 │       │             │              │           │
 │  ┌────▼─────────────▼──────────────▼───────┐  │
@@ -97,15 +97,6 @@ Built entirely by **Scott Antwi** (17, Ghana 🇬🇭) under **Alpha Global Mind
 ```
 
 ## 🔧 Technical Highlights
-
-### AI Key Rotation System
-12 Groq API keys with intelligent rotation:
-- Round-robin selection across all keys
-- Reads `retry-after` header on 429 responses
-- Marks keys as "dead" with exact recovery timestamps
-- Immediately tries next key on rate limit
-- 30-second total retry budget with sleep-until-soonest-recovery
-- Zero downtime for users even under heavy AI usage
 
 ### Smart Scholarship Matching
 Point-based scoring algorithm:
@@ -156,7 +147,6 @@ Plus AI-powered deep matching via LLaMA 3.3 70B for personalized recommendations
 | Hosting | PythonAnywhere |
 | Scraping | BeautifulSoup4, GitHub Actions |
 | Auth | PBKDF2, Google OAuth 2.0, Email OTP |
-| ML | scikit-learn, NumPy, Pillow (Malaria Scanner) |
 
 ## 🧪 Testing
 
@@ -170,22 +160,11 @@ Automated test suite with 50+ tests covering:
 - Chatbot responses (keyword routing, edge cases)
 - Search and pagination
 
-## 🎯 Other Projects
-
-| Project | Description | Tech |
-|---------|-------------|------|
-| **Malaria Cell Detection** | CNN achieving 95.43% accuracy on NIH dataset | scikit-learn, NumPy, Pillow |
-| **MNIST Neural Network** | From-scratch NN — 96% test, 99.685% Kaggle | Pure NumPy (no frameworks) |
-| **Wally** | ESP32 voice assistant with speech recognition | C++, ESP32, TTS/STT |
-| **VEX Line Follower** | Autonomous robot with PID control | C++, VEX Robotics |
-| **Grid Pathfinder** | BFS/DFS/A* algorithm visualizer | Python |
-
 ## 📬 Contact
 
 - 🌐 **Website:** [scholarfinder.pythonanywhere.com](https://scholarfinder.pythonanywhere.com)
 - 📧 **Email:** scottantwi930@gmail.com
 - 💬 **WhatsApp:** +233549545063
-- 🐙 **GitHub:** [@ScottT2-spec](https://github.com/ScottT2-spec)
 - 📸 **Instagram:** [@bb_scott1](https://instagram.com/bb_scott1)
 
 ---
