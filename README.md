@@ -156,7 +156,6 @@ Plus AI-powered deep matching via LLaMA 3.3 70B for personalized recommendations
 | Hosting | PythonAnywhere |
 | Scraping | BeautifulSoup4, GitHub Actions |
 | Auth | PBKDF2, Google OAuth 2.0, Email OTP |
-| ML | scikit-learn, NumPy, Pillow (Malaria Scanner) |
 
 ## 🧪 Testing
 
@@ -174,7 +173,6 @@ Automated test suite with 50+ tests covering:
 
 | Project | Description | Tech |
 |---------|-------------|------|
-| **Malaria Cell Detection** | CNN achieving 95.43% accuracy on NIH dataset | scikit-learn, NumPy, Pillow |
 | **MNIST Neural Network** | From-scratch NN — 96% test, 99.685% Kaggle | Pure NumPy (no frameworks) |
 | **Wally** | ESP32 voice assistant with speech recognition | C++, ESP32, TTS/STT |
 | **VEX Line Follower** | Autonomous robot with PID control | C++, VEX Robotics |
